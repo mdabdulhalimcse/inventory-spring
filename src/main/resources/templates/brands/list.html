@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+  <link th:href="@{/css/brandStyle.css}" rel="stylesheet"></link>
+
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <script th:src="@{/js/brand.js}" type="text/javascript"></script>
+<!--  <script th:src="@{/js/brandValidations.js}" type="text/javascript"></script>-->
+
+
+</head>
+<body>
+
+
+<div class="container">
+<table border="1px solid" style="width: 90%" align="center">
+  <tr class="text-center">
+    <th>ID</th>
+    <th>Brand Name</th>
+    <th>Entry Date</th>
+    <th>Action</th>
+  </tr>
+
+  <tr th:each="list,iterator : ${brandList}">
+    <td th:text="${iterator.index+1}"></td>
+    <td th:text="${list.brandName}"></td>
+    <td class="text-center" th:text="${#dates.format(list.entryDate, 'MMM dd, yyyy')}"></td>
+    <td  class="text-center">
+      <button th:onclick="getUpdateBrand([[${list.id}]])"> <span class="glyphicon glyphicon-edit"></span></button>
+<!--       <a th:href="@{/brand/delete/}+${list.id}"><span class="glyphicon glyphicon-trash"></span></a>-->
+       <button th:onclick="deleteBrand([[${list.id}]])" id="deleteId"><span class="glyphicon glyphicon-trash"></span></button>
+    </td>
+
+  </tr>
+</table>
+</div>
+
+<!--data-toggle="modal" data-target="#myModal"-->
+<button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-lg" >
+  Add Brand
+</button>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Add Model</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" id="basic-form" method="post">
+          <fieldset class="col-sm-12">
+            <div class="form-group" >
+              <lable for="brandName" class="col-sm-4 control-label">Brand Name * </lable>
+              <div class="col-sm-6">
+                <input type="text" id="brandName" name="brandName" class="form-control" required/>
+              </div>
+              <div class="col-sm-3">
+              </div>
+            </div>
+          </fieldset>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <input type="submit" class="btn btn-primary" onclick="saveBrand()" value="Add">
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="myModalUpdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabelUpdate">Add Brand</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" id="basic-form-update" method="post">
+          <fieldset class="col">
+            <div class="form-group" >
+              <lable for="brandNameUpdate" class="col-sm-5 control-label">Brand Name * </lable>
+              <div class="col-sm-5">
+                <input type="text" onchange="brandValidation()" id="brandNameUpdate" name="brandName" class="form-control" required/>
+              </div>
+              <div class="col-sm-5">
+              </div>
+            </div>
+          </fieldset>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <input type="submit" id="updateId" class="btn btn-primary" onclick="updateBrand()" value="Add">
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script th:src="@{/js/brandValidations.js}" type="text/javascript"></script>
+</body>
+</html>

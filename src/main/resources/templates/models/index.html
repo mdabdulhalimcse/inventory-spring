@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Model Page</title>
+    <link th:href="@{/css/modelStyle.css}" rel="stylesheet"></link>
+    <!--    &lt;!&ndash; JS &ndash;&gt;-->
+        <script th:src="@{/js/model.js}" type="text/javascript"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body >
+
+    <div class="container">
+        <table border="1px solid" style="width: 90%" align="center">
+            <tr class="text-center">
+                <th>ID</th>
+                <th>Name</th>
+                <th>Brand Name</th>
+                <th>Entry Date</th>
+                <th>Action</th>
+            </tr>
+
+            <tr  th:each="list,iterator : ${modelList}">
+                <td th:text="${iterator.index+1}"></td>
+                <td th:text="${list.modelName}"></td>
+                <td th:text="${list.getBrand().getBrandName()}"></td>
+                <td class="text-center" th:text="${#dates.format(list.entryDate, 'dd/mm/yyyy')}"></td>
+                <td  class="text-center">
+                    <button th:onclick="getUpdateModels([[${list.id}]])"> <span class="glyphicon glyphicon-edit"></span></button>
+                    <a th:href="@{/model/delete/}+${list.id}"><span class="glyphicon glyphicon-trash"></span></a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+<div>
+    <button type="button" class="btn btn-primary btn-lg"  onclick="getBrandList()">
+        Add Model
+    </button>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add Model</h4>
+                </div>
+                <div class="modal-body">
+
+                    <form class="form-horizontal" method="post">
+                        <fieldset class="col">
+                            <div class="form-group ">
+                                <lable for="brandName" class="col-sm-5 control-lable">Brand Name *</lable>
+                                <div class="col-sm-5 ">
+
+                                    <select name="brandName" id="brandName" >
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <lable for="modelName" class="col-sm-5 control-label">Model Name *</lable>
+                                <div class="col-sm-5">
+                                    <input type="text" id="modelName" name="modelName" class="form-control" required/>
+                                </div>
+                                <div class="col">
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <input type="submit" onclick="addModel()" class="btn btn-primary" value="Add Model">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="modal fade" id="myModalUpdate1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabelUpdate">Add Model</h4>
+                </div>
+                <div class="modal-body">
+
+                    <form class="form-horizontal" method="post">
+                        <fieldset class="col">
+                            <div class="form-group ">
+                                <lable for="brandName" class="col-sm-5 control-lable">Brand Name *</lable>
+                                <div class="col-sm-5 ">
+                                    <select name="brandName" id="brandNameUpdate" >
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <lable for="modelNameUpdate" class="col-sm-5 control-label">Model Name *</lable>
+                                <div class="col-sm-5">
+                                    <input type="text" id="modelNameUpdate" name="modelName" class="form-control" required/>
+                                </div>
+                                <div class="col">
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <input type="submit" onclick="addModelUpdate()" class="btn btn-primary" value="Add Model">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
