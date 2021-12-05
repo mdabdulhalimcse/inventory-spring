@@ -6,6 +6,6 @@ import com.mmtvbd.entity.Models;
 import java.util.List;
 
 public interface ModelsService {
-    List<Models> modelsUpdate(ObjectNode objectNode);
-    List<Models> modelsSave(ObjectNode objectNode,Models models);
+     String modelsUpdate(ObjectNode objectNode);
+    String modelsSave(ObjectNode objectNode,Models models);
 }
