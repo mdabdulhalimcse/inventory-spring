@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -29,14 +30,20 @@ public class BrandController {
 
     @RequestMapping(value = "/brand/add", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public List<Brand> saveBrand(@RequestBody ObjectNode objectNode,Brand brand){
-        return this.brandService.brandSave(objectNode,brand);
+    public List<Object> saveBrand(@RequestBody ObjectNode objectNode,Brand brand){
+        List<Object> list=new ArrayList<>();
+        String rtnMsg= this.brandService.brandSave(objectNode,brand);
+        list.add(rtnMsg);
+        return list;
     }
 
     @RequestMapping(value = "/brand/update", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public List<Brand> updateBrand(@RequestBody ObjectNode objectNode){
-        return this.brandService.brandUpdate(objectNode);
+    public List<Object> updateBrand(@RequestBody ObjectNode objectNode){
+        List<Object> list=new ArrayList<>();
+        String rtnMsg= this.brandService.brandUpdate(objectNode);
+        list.add(rtnMsg);
+        return list;
     }
 
     @GetMapping(value = "brand/delete/{id}")
