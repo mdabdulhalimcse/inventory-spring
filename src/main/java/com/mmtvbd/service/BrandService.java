@@ -9,7 +9,7 @@ public interface BrandService {
     List<Brand> findAllById(long id);
     List<Brand> findAllByOrderByEntryDateDesc();
     List<String> findBrandByBrandName(String name);
-    List<Brand> brandUpdate(ObjectNode objectNode);
-    List<Brand> brandSave(ObjectNode objectNode,Brand brand);
+    String brandUpdate(ObjectNode objectNode);
+    String brandSave(ObjectNode objectNode,Brand brand);
 
 }
