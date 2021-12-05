@@ -52,15 +52,10 @@ function getUpdateModels(id) {
 
         success: function (response) {
 
-            // console.log(response[0])
-            // console.log("Back spaceeeeeeeeeeeeee")
-            // console.log(response[1])
             const brands = response[0].at(modelName);
             const models = response[1];
             const selectBrand = brands.brand.brandName;
             console.log(selectBrand)
-// [[Models(id=11, modelName=, entryDate=2021-12-03 14:15:28.72, brand=Brand(id=8, brandName=MicroMac, entryDate=2021-12-02 20:03:14.454))], [Brand(id=8, brandName=MicroMac, entryDate=2021-12-02 20:03:14.454), Brand(id=11, brandName=MicroMac, entryDate=2021-12-03 15:17:46.172), Brand(id=15, brandName=MicroMac, entryDate=2021-12-03 00:05:17.676), Brand(id=17, brandName=MicroMacf, entryDate=2021-12-03 00:43:22.546), Brand(id=18, brandName=MicroMacs121, entryDate=2021-12-03 12:45:47.687), Brand(id=39, brandName=MicroMac, entryDate=2021-12-03 14:14:29.235), Brand(id=40, brandName=Aarong, entryDate=2021-12-03 02:25:24.32), Brand(id=41, brandName=MicroMac, entryDate=2021-12-03 02:21:00.455), Brand(id=46, brandName=Orange, entryDate=2021-12-03 12:59:16.893), Brand(id=56, brandName=Aarong, entryDate=2021-12-03 15:18:32.372), Brand(id=57, brandName=, entryDate=2021-12-03 15:18:45.177), Brand(id=58, brandName=, entryDate=2021-12-03 15:18:51.053)]]
-//             const brandData = response[0].brand;
 
              modelN.value=brands.modelName;
              brandN.value=selectBrand;
@@ -110,7 +105,14 @@ function addModel(){
         contentType: "application/json; charset=utf-8",
         //data: "year=" +  year + "&month=" +  month+ "&from=" +  from + "&to=" +  to,
         success: function (response) {
-            alert('Model has been updated successfully')
+            if (response == 'success'){
+                alert('Brand has been added successfully')
+            }
+            else if (response == 'duplicate'){
+                alert('Sorry!!!. Your brand name already exists!')
+            }else{
+                alert('Internal Error!')
+            }
 
         }
         ,
@@ -143,8 +145,14 @@ var getId = brandI;
         contentType: "application/json; charset=utf-8",
         //data: "year=" +  year + "&month=" +  month+ "&from=" +  from + "&to=" +  to,
         success: function (response) {
-            alert('Model has been updated successfully')
-
+            if (response == 'success'){
+                alert('Brand has been added successfully')
+            }
+            else if (response == 'duplicate'){
+                alert('Sorry!!!. Your brand name already exists!')
+            }else{
+                alert('Internal Error!')
+            }
         }
         ,
         error: function (e) {
@@ -152,5 +160,28 @@ var getId = brandI;
         }
     });
 
+}
+
+function deleteModels(id) {
+    var delId = document.getElementById('deleteId');
+    const modelId = id;
+    if (confirm('Are You sure to delete the selected brand?')) {
+
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8085/model/delete/"+modelId,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+
+            }
+            ,
+            error: function (e) {
+                // alert('Error getUpdateBrand: ' + e);
+            }
+        });
+    } else {
+
+    }
 }
 
