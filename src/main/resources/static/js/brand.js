@@ -19,7 +19,14 @@ function saveBrand() {
         contentType: "application/json; charset=utf-8",
 
         success: function (response) {
-            alert('Brand has been added successfully')
+            if (response == 'success'){
+                alert('Brand has been added successfully')
+            }
+            else if (response == 'dublicate'){
+                alert('Sorry!!!. Your brand name already exists!')
+            }else{
+                alert('Internal Error!')
+            }
         }
         ,
         error: function (e) {
@@ -96,7 +103,14 @@ function updateBrand() {
         contentType: "application/json; charset=utf-8",
 
         success: function (response) {
-            alert('Brand has been updated successfully')
+            if (response == 'success'){
+                alert('Brand has been added successfully')
+            }
+            else if (response == 'dublicate'){
+                alert('Sorry!!!. Your brand name already exists!')
+            }else{
+                alert('Internal Error!')
+            }
         }
         ,
         error: function (e) {
