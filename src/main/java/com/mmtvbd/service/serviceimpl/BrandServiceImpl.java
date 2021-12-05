@@ -33,47 +33,35 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public List<Brand> brandUpdate(ObjectNode objectNode) {
-        List<Brand> brands = this.brandRepo.findAll();
-        boolean result = true;
-        for (Brand s: brands){
-            if (s.getBrandName().equals(objectNode.get("brandName").asText())){
-                System.out.println("Already exists!");
-                result = false;
-                break;
-            }else {
-               result = true;
-            }
-        }
-        if (result == true){
+    public String brandUpdate(ObjectNode objectNode) {
+        String name = objectNode.get("brandName").asText().toString();
+        List<String> brands = this.brandRepo.findBrandByBrandName(name);
+        int brandCheck = brands.size();
+
+        if (brandCheck == 0){
             Brand brand1 = brandRepo.getOne(Long.valueOf(objectNode.get("id").asText()));
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             brand1.setEntryDate(timestamp);
             brand1.setBrandName(objectNode.get("brandName").asText());
             brandRepo.save(brand1);
+            return "success";
         }
-        return null;
+        return "dublicate";
     }
 
     @Override
-    public List<Brand> brandSave(ObjectNode objectNode,Brand brand) {
-        List<Brand> brands = this.brandRepo.findAll();
-        boolean result = true;
-        for (Brand s: brands){
-            if (s.getBrandName().equals(objectNode.get("brandName").asText())){
-                System.out.println("Already exists! Please try again...");
-                result = false;
-                break;
-            }else {
-               result = true;
-            }
-        }
-        if (result == true){
+    public String brandSave(ObjectNode objectNode,Brand brand) {
+        String name = objectNode.get("brandName").asText().toString();
+        List<String> brands = this.brandRepo.findBrandByBrandName(name);
+        int brandCheck = brands.size();
+
+        if (brandCheck == 0){
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             brand.setEntryDate(timestamp);
             brand.setBrandName(objectNode.get("brandName").asText());
             brandRepo.save(brand);
+            return "success";
         }
-        return null;
+        return "dublicate";
     }
 }
