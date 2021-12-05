@@ -42,8 +42,11 @@ public class ModelsController {
 
     @RequestMapping(value = "/model/add", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public List<Models> saveModels(@RequestBody ObjectNode objectNode, Models models ){
-        return this.modelsService.modelsSave(objectNode,models);
+    public List<Object> saveModels(@RequestBody ObjectNode objectNode, Models models ){
+        List<Object> list=new ArrayList<>();
+        String rtnMsg= modelsService.modelsSave(objectNode,models);
+        list.add(rtnMsg);
+        return list;
     }
 
     @GetMapping(value = "model/delete/{id}")
@@ -66,8 +69,11 @@ public class ModelsController {
 
     @RequestMapping(value = "/model/update", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public List<Models> saveModelUpdate(@RequestBody ObjectNode objectNode, Models models, Model model){
-        return this.modelsService.modelsUpdate(objectNode);
+    public List<Object> saveModelUpdate(@RequestBody ObjectNode objectNode, Models models, Model model){
+        List<Object> list=new ArrayList<>();
+        String rtnMsg= modelsService.modelsUpdate(objectNode);
+        list.add(rtnMsg);
+        return list;
     }
 
 }
